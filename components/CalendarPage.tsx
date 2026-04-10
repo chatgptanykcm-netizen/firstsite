@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { CalendarEvent, ViewMode } from '@/lib/types';
-import { CSV_URL, parseCSV, groupEventsByDate } from '@/lib/utils';
+import { parseCSV, groupEventsByDate } from '@/lib/utils';
 import Header from '@/components/Header';
 import MonthView from '@/components/MonthView';
 import ListView from '@/components/ListView';
@@ -25,7 +25,7 @@ export default function CalendarPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(CSV_URL, { cache: 'no-store' });
+      const res = await fetch('/api/calendar', { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = await res.text();
       const parsed = parseCSV(text);
